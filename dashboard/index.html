@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Power-Law Radar — pre-token protocols ranked by implied value</title>
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<header class="top">
+  <h1>Power-Law Radar</h1>
+  <p class="sub">Pre-token protocols, priced off traded peers. Every implied value comes from the snapshot's own figures — never from a hardcoded name list.</p>
+  <p class="model" id="model-line">Loading model…</p>
+</header>
+
+<section class="controls">
+  <label>Search <input id="q" type="search" placeholder="protocol, category, chain…"></label>
+  <label>Category <select id="cat"><option value="">All categories</option></select></label>
+  <label>TVL <select id="mintvl">
+    <option value="0">Any TVL</option>
+    <option value="50000000">≥ $50M (watchlist floor)</option>
+    <option value="100000000">≥ $100M</option>
+    <option value="500000000">≥ $500M</option>
+  </select></label>
+  <label class="chk"><input id="wl" type="checkbox"> Watchlist only</label>
+  <span id="count" class="count"></span>
+</section>
+
+<main>
+  <table id="board">
+    <thead><tr>
+      <th data-k="rank">#</th><th data-k="name">Protocol</th><th data-k="category">Category</th>
+      <th data-k="chains">Chains</th><th data-k="tvl_usd">TVL</th><th data-k="change_7d">7d</th>
+      <th data-k="age_years">No token for</th><th data-k="implied_value_usd">Implied value</th>
+      <th data-k="multiple">Multiple</th><th data-k="ev_per_farmer_usd">EV / farmer</th>
+    </tr></thead>
+    <tbody id="rows"></tbody>
+  </table>
+
+  <section id="detail" class="detail" hidden></section>
+
+  <section class="method">
+    <h2>Methodology — how the numbers are made</h2>
+    <div id="method-body">Loading…</div>
+    <h3>What this radar does not do</h3>
+    <ul>
+      <li>It does not predict whether or when a protocol issues a token. The implied value is this entry's claim about what a token <em>would</em> be worth if the protocol's record stayed as it is.</li>
+      <li>It says a protocol <em>records no token</em>, never that it has none: a DefiLlama record can miss a token.</li>
+      <li>Growth (7d) and age (time with no token) are <em>not</em> in the formula. Both were tested as extra regressors in the leave-one-out backtest and neither improved it, so they are shown as context only.</li>
+      <li>Farmers and EV per farmer are order-of-magnitude estimates from TVL and chain count, shown as a range (×0.5–×2). The point EV assumes 10% of the implied value reaches the farming community.</li>
+    </ul>
+  </section>
+</main>
+
+<footer>
+  <p>Built from the sealed snapshot (DefiLlama protocols, as of <span id="asof"></span>). Implied values are this entry's claim, never make.fun's. No network is used; all data is in data.js.</p>
+</footer>
+<script src="../data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
